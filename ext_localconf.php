@@ -29,3 +29,21 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY] = array(
 	'excludeChars' => trim($_EXTCONF['excludeChars']) ? : '',
 );
 
+call_user_func(function () {
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService(
+        'captcha_login',
+        'auth',
+        \ThinkopenAt\Captcha\Service\CaptchaService::class,
+        [
+            'title' => 'CaptchaService',
+            'description' => 'Frontend login captcha check',
+            'subtype' => 'processLoginDataFE',
+            'available' => true,
+            'priority' => 70,
+            'quality' => 70,
+            'os' => '',
+            'exec' => '',
+            'className' => \ThinkopenAt\Captcha\Service\CaptchaService::class,
+        ]
+    );
+});
